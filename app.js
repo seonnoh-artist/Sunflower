@@ -28,9 +28,7 @@ let starNum = 2;
 let sound;
 let theta = 0;
 let tint_count = 0;
-let chk = false;
-let preX, preY;
-
+let imageReady = false;
 
 function preload() {
   bg = loadImage("data/sea.jpg", 
@@ -61,7 +59,6 @@ function initializeArt() {
   tint(255, 10);
   curImg = get();
   preImg = get();
-  preImg.loadPixels();
 }
 
 function mouseReleased() { 
@@ -70,18 +67,15 @@ function mouseReleased() {
 
 function draw() {
 
-  if(!bg){
-    bg = loadImage("data/sea.jpg");
-    return;
-  }
-
   if(!curImg || !curImg.width){
+    bg = loadImage("data/sea.jpg");
     image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     curImg = get();
     return;   // 다음 프레임 부터 실행
   }
 
   if(!preImg || !preImg.width){
+    bg = loadImage("data/sea.jpg");
     image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     preImg = get();
     return;   // 다음 프레임 부터 실행
@@ -131,13 +125,7 @@ function draw() {
     image(randomStar, x, y, randomR, randomR);
 
     blend(preImg, 0, 0, curImg.width, curImg.height, 0, 0, width, height, LIGHTEST);
-
-    preX = x;
-    preY = y;
-    chk = true;
-  } else {
-    chk = false;
-  }
+  } 
 }
 
 if ('serviceWorker' in navigator) {
