@@ -30,10 +30,7 @@ let theta = 0;
 let tint_count = 0;
 let chk = false;
 let preX, preY;
-/*
-function windowResized(){
-  resizeCanvas(windowWidth, windowHeight);
-}*/
+
 
 function preload() {
   bg = loadImage("data/sea.jpg", 
@@ -74,13 +71,14 @@ function mouseReleased() {
 function draw() {
 
   if(!curImg || !curImg.width){
+    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     curImg = get();
     return;   // 다음 프레임 부터 실행
   }
 
   if(!preImg || !preImg.width){
+    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     preImg = get();
-    preImg.loadPixels();
     return;   // 다음 프레임 부터 실행
   }
   
