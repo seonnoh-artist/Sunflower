@@ -72,6 +72,7 @@ function draw() {
 
   if(!bg){
     bg = loadImage("data/sea.jpg");
+    return;
   }
 
   if(!curImg || !curImg.width){
