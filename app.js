@@ -28,7 +28,7 @@ let starNum = 2;
 let sound;
 let theta = 0;
 let tint_count = 0;
-let artInitialized = false;
+let imageReady = false;
 
 function preload() {
   bg = loadImage("data/sea.jpg", 
@@ -49,13 +49,6 @@ function preload() {
   );
 }
 
-function windowResized(){ // 캔버스 크기 자동조절 (다양한화면에서 적용가능하도록)
-  if(artInitialized){
-    resizeCanvas(windwoWidth, windowHeight);
-    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
-  }
-}
-
 function initializeArt() {
   const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
   cnv.parent('art-container')
@@ -66,24 +59,24 @@ function initializeArt() {
   tint(255, 10);
   curImg = get();
   preImg = get();
-  artInitialized = true;
 }
 
-function touchEnded() { 
+function mouseReleased() { 
   sound.play();
-  return false;
 }
 
 function draw() {
 
-  if(!artInitialized) return; // 초기작업 완료 안되면 안하는 걸로로
-
   if(!curImg || !curImg.width){
+    bg = loadImage("data/sea.jpg");
+    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     curImg = get();
     return;   // 다음 프레임 부터 실행
   }
 
   if(!preImg || !preImg.width){
+    bg = loadImage("data/sea.jpg");
+    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     preImg = get();
     return;   // 다음 프레임 부터 실행
   }
