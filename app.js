@@ -49,6 +49,13 @@ function preload() {
   );
 }
 
+function windowResized(){ // 캔버스 크기 자동조절 (다양한화면에서 적용가능하도록)
+  if(artInitialized){
+    resizeCanvas(windwoWidth, windowHeight);
+    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
+  }
+}
+
 function initializeArt() {
   const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
   cnv.parent('art-container')
@@ -62,8 +69,9 @@ function initializeArt() {
   artInitialized = true;
 }
 
-function mouseReleased() { 
+function touchEnded() { 
   sound.play();
+  return false;
 }
 
 function draw() {
@@ -71,15 +79,11 @@ function draw() {
   if(!artInitialized) return; // 초기작업 완료 안되면 안하는 걸로로
 
   if(!curImg || !curImg.width){
-    bg = loadImage("data/sea.jpg");
-    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     curImg = get();
     return;   // 다음 프레임 부터 실행
   }
 
   if(!preImg || !preImg.width){
-    bg = loadImage("data/sea.jpg");
-    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     preImg = get();
     return;   // 다음 프레임 부터 실행
   }

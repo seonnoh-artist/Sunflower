@@ -52,5 +52,13 @@
   <div id="art-container" style="display:none;">
     <!-- p5.js art will be displayed here -->
   </div>
+  <script>
+    document.getElementById('password').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
+    });/*엔터키 입력 패스워드 입력시 자바스크립트 호출*/
+  </script>  
+  <script language="javascript" type="text/javascript" src="app.js"></script> 
 </body>
 </html>
