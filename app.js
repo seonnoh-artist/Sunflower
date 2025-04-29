@@ -29,6 +29,8 @@ let sound;
 let theta = 0;
 let tint_count = 0;
 let imageReady = false;
+let initFrame = null;
+let artInitialized = false;
 
 function preload() {
   bg = loadImage("data/sea.jpg", 
@@ -57,6 +59,8 @@ function initializeArt() {
   wave_down = height / 2;
   noStroke();
   tint(255, 10);
+  artInitialized = true;
+  initFrame = frameCount;
   curImg = get();
   preImg = get();
 }
@@ -67,19 +71,16 @@ function mouseReleased() {
 
 function draw() {
 
-  if(!curImg || !curImg.width){
-    bg = loadImage("data/sea.jpg");
-    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
+  if(!artInitialized) return;
+
+  if(!curImg && frameCount >initFrame +1){
     curImg = get();
-    return;   // 다음 프레임 부터 실행
+    preImg = get();
+    return; // 다음 프레임부터터 정상 작동동
   }
 
-  if(!preImg || !preImg.width){
-    bg = loadImage("data/sea.jpg");
-    image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
-    preImg = get();
-    return;   // 다음 프레임 부터 실행
-  }
+  if(!curImg || !curImg.width) return;
+  if(!preImg || !preImg.width) return;
   
   curImg = get();
   curImg.loadPixels();
