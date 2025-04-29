@@ -31,6 +31,10 @@ let tint_count = 0;
 let chk = false;
 let preX, preY;
 
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function preload() {
   bg = loadImage("data/sea.jpg", 
     () => { console.log('sea.jpg loaded successfully'); }, 
