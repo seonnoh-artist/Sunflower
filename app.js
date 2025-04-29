@@ -28,7 +28,7 @@ let starNum = 2;
 let sound;
 let theta = 0;
 let tint_count = 0;
-let imageReady = false;
+let artInitialized = false;
 
 function preload() {
   bg = loadImage("data/sea.jpg", 
@@ -59,6 +59,7 @@ function initializeArt() {
   tint(255, 10);
   curImg = get();
   preImg = get();
+  artInitialized = true;
 }
 
 function mouseReleased() { 
@@ -66,6 +67,8 @@ function mouseReleased() {
 }
 
 function draw() {
+
+  if(!artInitialized) return; // 초기작업 완료 안되면 안하는 걸로로
 
   if(!curImg || !curImg.width){
     bg = loadImage("data/sea.jpg");
