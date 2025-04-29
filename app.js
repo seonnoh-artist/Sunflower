@@ -70,6 +70,10 @@ function mouseReleased() {
 
 function draw() {
 
+  if(!bg){
+    bg = loadImage("data/sea.jpg");
+  }
+
   if(!curImg || !curImg.width){
     image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
     curImg = get();
