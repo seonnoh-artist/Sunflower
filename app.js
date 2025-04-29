@@ -51,7 +51,7 @@ function preload() {
 }
 
 function initializeArt() {
-  const cnv = createCanvas(1000, 1200); // 원래 setup()의 createCanvas() 부분만 여기
+  const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
   cnv.parent('art-container')
   image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
   wave_up = height / 3;
