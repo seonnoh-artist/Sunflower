@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Art App</title>
+  <link rel="manifest" href="/manifest.json">
+ 
+   <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+   <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+   <script language="javascript" type="text/javascript" src="app.js"></script>
+   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.sound.min.js"></script>
+  <style>
+    #art-container {
+      display: none;
+      position : relative;  /*필요하다면 z-index*/
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #password-form {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    input {
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="password-form">
+    <h2>Enter Password</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+
+  <div id="art-container" style="display:none;">
+    <!-- p5.js art will be displayed here -->
+  </div>
+</body>
+</html>
