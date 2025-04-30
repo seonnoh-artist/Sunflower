@@ -76,22 +76,24 @@ function mouseReleased() {
   sound.play();
 }
 
+
 function draw() {
 
   if(!artInitialized) return;
-  if(!curImg || !curImg.width) return; //방어코드
 
   if(!curImg && frameCount >initFrame +1){
     curImg = get();
+    curImg.loadPixels();
     preImg = get();
+    preImg.loadPixels();
     return; // 다음 프레임부터터 정상 작동동
   }
 
   if(!curImg || !curImg.width) return;
   if(!preImg || !preImg.width) return;
   
-  curImg = get();
-  curImg.loadPixels();
+   curImg = get();
+   curImg.loadPixels();
 
   if (tint_count < 10) {
     tint_count += 0.1;
