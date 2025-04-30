@@ -5,12 +5,17 @@ function checkPassword() {
   enteredPassword = document.getElementById('password').value;
   
   if (enteredPassword === password) {
+    //포커스 해제해서 키보드 내려가게 함 
+    document.activeElement.blur();
+
+    //다음 프레임에 화면을 고정
+    setTimeout(() => {
     document.getElementById('password-form').style.display = 'none';
     document.getElementById('password-form').innerHTML = ''; //html구조제거 
     document.getElementById('art-container').style.display = 'block';
-    //포커스 해제해서 키보드 내려가게 함 
-    document.activeElement.blur();
+ 
     initializeArt();
+    },50); //50~100ms사이 안전 
   } else {
     alert('Incorrect password');
   }
