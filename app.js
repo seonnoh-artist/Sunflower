@@ -79,7 +79,7 @@ function mouseReleased() {
 function draw() {
 
   if(!artInitialized) return;
-  if(!curImg || !curImg.width) return;
+  if(!curImg || !curImg.width) return; //방어코드
 
   if(!curImg && frameCount >initFrame +1){
     curImg = get();
