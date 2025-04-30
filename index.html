@@ -34,7 +34,12 @@
     }
     #art-container {
       display: none;
-      position : fixed;  /*relative에서 수정*/
+      position : absolute;  /*relative에서 수정*/
+      top: 0; left:0 ; right:0; bottom:0;
+      width:100%;
+      height:100%;
+      overflow: hidden;
+      touch-action:none;
     }
     body {
       font-family: Arial, sans-serif;
