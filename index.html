@@ -51,17 +51,20 @@
       font-size: 16px;
     }
   </style>
-  <script>
-    // 전체 문서에서 touchmove(스크롤) 시 기본 동작(스크롤, 바운스 등)을 막습니다.
-    document.addEventListener('touchmove', function(e) {
-      // 만약 캔버스 위의 터치만 허용하고 싶다면, 
-      // e.target이 canvas일 때만 리턴하고 나머지는 preventDefault()
-      if (e.target && e.target.nodeName === 'CANVAS') {
-        return; 
-      }
+<script>
+  // 터치 이동 중 브라우저의 기본 스크롤/바운스 동작을 방지
+  window.addEventListener('touchmove', function(e) {
+    // e.composedPath() 를 사용해 캔버스가 이벤트 경로에 있는지 확인
+    const path = e.composedPath && e.composedPath();
+    const isOnCanvas = path && path.some(el => el.tagName === 'CANVAS');
+
+    if (!isOnCanvas) {
+      // 캔버스 외부 터치무브는 전부 막는다
       e.preventDefault();
-    }, { passive: false });
-  </script>
+    }
+    // 캔버스 터치무브는 기본 동작 허용 → p5.js 터치 콜백으로 전달
+  }, { passive: false });
+</script>
 </head>
 <body>
   <div id="password-form">
