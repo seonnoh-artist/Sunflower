@@ -78,14 +78,6 @@
     if (!isOnCanvas) e.preventDefault();
   }, { passive: false });
 
-  // 추가: 터치 시작 시 입력 외 영역이면 키보드 내리기
-  document.addEventListener('touchstart', function(e) {
-    const tag = e.target.tagName;
-    const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable;
-    if (!isInput) {
-      document.activeElement.blur();
-    }
-  }, { passive: false });
 </script>
 
   <div id="art-container" style="display:none;">
