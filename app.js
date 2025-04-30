@@ -57,7 +57,10 @@ function preload() {
 
 function initializeArt() {
   const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
-  cnv.parent('art-container')
+  cnv.parent('art-container');
+  cnv.position(0,0); //좌표 틀어짐 방지 
+  resizeCanvas(windowWidth, windowHeight); //강제 크기 재설정
+
   image(bg, 0, 0, width, height, 0, 0, bg.width, bg.height, COVER);
   wave_up = height / 3;
   wave_down = height / 2;
@@ -76,6 +79,7 @@ function mouseReleased() {
 function draw() {
 
   if(!artInitialized) return;
+  if(!curImg || !curImg.width) return;
 
   if(!curImg && frameCount >initFrame +1){
     curImg = get();
