@@ -20,7 +20,6 @@
   <script language="javascript" type="text/javascript" src="libraries/p5.sound.min.js"></script>
   <style>
     html, body{
-      position: fixed; /*스크롤 막기*/
       margin:0;
       padding:0;
       overflow: hidden; /*스크롤 막기*/
@@ -28,13 +27,14 @@
       touch-action: none; /*터치동작막기*/
       height: 100%
     }
+
     canvas{
       display: block; /*캔버스가 여백없이 붙도록 설정*/
       touch-action:none; /*캔버스 전용으로 터치 스크롤 차단*/
     }
     #art-container {
       display: none;
-      position : relative;  /*필요하다면 z-index*/
+      position : fixed;  /*relative에서 수정*/
     }
     body {
       font-family: Arial, sans-serif;
