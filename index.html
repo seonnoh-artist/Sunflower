@@ -54,25 +54,30 @@
 
 </head>
 <body>
-  <script>
-  // 터치 이동 중 브라우저의 기본 스크롤/바운스 동작을 방지
-  window.addEventListener('touchmove', function(e) {
-    // e.composedPath() 를 사용해 캔버스가 이벤트 경로에 있는지 확인
-    const path = e.composedPath && e.composedPath();
-    const isOnCanvas = path && path.some(el => el.tagName === 'CANVAS');
 
-    if (!isOnCanvas) {
-      // 캔버스 외부 터치무브는 전부 막는다
-      e.preventDefault();
-    }
-    // 캔버스 터치무브는 기본 동작 허용 → p5.js 터치 콜백으로 전달
-  }, { passive: false });
- </script>
   <div id="password-form">
     <h2>Enter Password</h2>
     <input type="password" id="password" placeholder="Password">
     <button onclick="checkPassword()">Submit</button>
   </div>
+
+  <script>
+  // 캔버스 외부 터치에 대해 기본 동작 방지
+  window.addEventListener('touchmove', function(e) {
+    const path = e.composedPath && e.composedPath();
+    const isOnCanvas = path && path.some(el => el.tagName === 'CANVAS');
+    if (!isOnCanvas) e.preventDefault();
+  }, { passive: false });
+
+  // 추가: 터치 시작 시 입력 외 영역이면 키보드 내리기
+  document.addEventListener('touchstart', function(e) {
+    const tag = e.target.tagName;
+    const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable;
+    if (!isInput) {
+      document.activeElement.blur();
+    }
+  }, { passive: false });
+</script>
 
   <div id="art-container" style="display:none;">
     <!-- p5.js art will be displayed here -->
