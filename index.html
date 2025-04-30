@@ -119,8 +119,12 @@
   }, { passive: false });
 
   document.addEventListener('touchend', function(e) {
-  touchInProgress = false; // 터치가 끝나면 진행 상태 초기화
-  console.log('Touch End');
+    touchInProgress = false; // 터치가 끝나면 진행 상태 초기화
+    console.log('Touch End');
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY !== 0) window.scrollTo(0, 0);
   });
 
   // p5.js에서 터치 이벤트 처리
