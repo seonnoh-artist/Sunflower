@@ -46,10 +46,14 @@
       margin: 100px auto;
       text-align: center;
     }
-    input {
+    input, button {
       margin-bottom: 10px;
       padding: 8px;
       font-size: 16px;
+      touch-action: manipulation; /*ios에서 확대 등 제스처 방지*/
+      -webkit-user-select: none;
+      -webkit-touch-callout:none;
+      outline: none;
     }
   </style>
 

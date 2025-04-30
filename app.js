@@ -35,6 +35,7 @@ let imageReady = false;
 let initFrame = null;
 let artInitialized = false;
 
+
 function preload() {
   bg = loadImage("data/sea.jpg", 
     () => { console.log('sea.jpg loaded successfully'); }, 
