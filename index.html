@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable="no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Draw Your Memory">
@@ -23,11 +23,13 @@
       margin:0;
       padding:0;
       overflow: hidden; /*스크롤 막기*/
+      overscroll-behavior: none; /*바운스 풀투리프레시 방지*/
       touch-action: none; /*터치동작막기*/
       height: 100%
     }
     canvas{
       display: block; /*캔버스가 여백없이 붙도록 설정*/
+      touch-action:none; /*캔버스 전용으로 터치 스크롤 차단*/
     }
     #art-container {
       display: none;
@@ -49,6 +51,17 @@
       font-size: 16px;
     }
   </style>
+  <script>
+    // 전체 문서에서 touchmove(스크롤) 시 기본 동작(스크롤, 바운스 등)을 막습니다.
+    document.addEventListener('touchmove', function(e) {
+      // 만약 캔버스 위의 터치만 허용하고 싶다면, 
+      // e.target이 canvas일 때만 리턴하고 나머지는 preventDefault()
+      if (e.target && e.target.nodeName === 'CANVAS') {
+        return; 
+      }
+      e.preventDefault();
+    }, { passive: false });
+  </script>
 </head>
 <body>
   <div id="password-form">
