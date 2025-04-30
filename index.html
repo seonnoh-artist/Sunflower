@@ -51,7 +51,10 @@
       font-size: 16px;
     }
   </style>
-<script>
+
+</head>
+<body>
+  <script>
   // 터치 이동 중 브라우저의 기본 스크롤/바운스 동작을 방지
   window.addEventListener('touchmove', function(e) {
     // e.composedPath() 를 사용해 캔버스가 이벤트 경로에 있는지 확인
@@ -64,9 +67,7 @@
     }
     // 캔버스 터치무브는 기본 동작 허용 → p5.js 터치 콜백으로 전달
   }, { passive: false });
-</script>
-</head>
-<body>
+ </script>
   <div id="password-form">
     <h2>Enter Password</h2>
     <input type="password" id="password" placeholder="Password">
