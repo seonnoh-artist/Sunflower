@@ -69,6 +69,14 @@ function mouseReleased() {
   sound.play();
 }
 
+function touchStarted(){
+  return false; //캔버스 내부 터치 시 기본동작 차단 , 이벤트 핸들링링
+}
+
+function touchMoved(){
+  return false; // 캔버스 움직임 방지 
+}
+
 function draw() {
 
   if(!artInitialized) return;
