@@ -78,6 +78,46 @@
     if (!isOnCanvas) e.preventDefault();
   }, { passive: false });
 
+
+  // 터치 위치 처리 및 초기화 문제 방지
+  let touchInProgress = false;
+
+  // 터치 이벤트 처리
+  document.addEventListener('touchstart', function(e) {
+  if (touchInProgress) return; // 터치가 진행 중이면 처리하지 않음
+  touchInProgress = true; // 터치 진행 상태 설정
+
+  const touch = e.touches[0];
+  const touchX = touch.clientX;
+  const touchY = touch.clientY;
+
+  console.log('Touch Start:', touchX, touchY);  // 터치 좌표 확인용
+
+  // 터치 시작 처리 코드 (예: 그리기 시작)
+
+  }, { passive: false });
+
+  document.addEventListener('touchend', function(e) {
+  touchInProgress = false; // 터치가 끝나면 진행 상태 초기화
+  console.log('Touch End');
+  });
+
+  // p5.js에서 터치 이벤트 처리
+  function touchStarted() {
+     console.log('Touch Started');
+  // 필요한 초기화 작업 및 상태 설정
+  }
+
+  function touchMoved() {
+     console.log('Touch Moved');
+  // 터치가 이동할 때 필요한 작업 처리
+  }
+
+  function touchEnded() {
+     console.log('Touch Ended');
+  // 터치 종료 시 처리 작업
+  }
+
 </script>
 
   <div id="art-container" style="display:none;">
