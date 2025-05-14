@@ -226,7 +226,6 @@ function draw() {
     ellipse(b_x, b_y, ran_rid, ran_rid);
   }
 
-
   let xoff = 0; // Option #1: 2D Noise
   let x_value = 0;
 
@@ -238,8 +237,6 @@ function draw() {
     dimension = 0.05;
     x_value = 30;
   }
-
-
 
   //파도를 그린다.
   if (wave_chk == true) {
@@ -295,10 +292,12 @@ function draw() {
     touch_chk = true;
   } 
 
+  //터치종료후
+  /*
    if(touch_chk && (millis()- lastTouchtime > touchTimeout)){  
     handleReleased(); // 터치가 끝난 것으로 간주합니다. 
     touch_chk = false;
-  }
+  }*/
 }
 
 
