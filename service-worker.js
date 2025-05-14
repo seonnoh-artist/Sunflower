@@ -8,25 +8,27 @@ const urlsToCache = [
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
-  '/data/sea.jpg',
+  '/data/shootingStar_bk.jpg',
   '/data/star0.png',
   '/data/star1.png',
-  '/data/wave.mp3'
+  '/data/star2.png',
+  '/data/star3.png',
+  '/data/star4.png'
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function(cache) {
+      .then(function (cache) {
         return cache.addAll(urlsToCache);
       })
   );
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
   event.respondWith(
     caches.match(event.request)
-      .then(function(response) {
+      .then(function (response) {
         return response || fetch(event.request);
       })
   );

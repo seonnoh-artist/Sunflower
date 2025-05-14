@@ -1,6 +1,6 @@
 {
-  "name": "Draw Your Memory",
-  "short_name": "Draw",
+  "name": "Make a wish",
+  "short_name": "Wish",
   "description": "A gallery for interactive art",
   "start_url": "/index.html",
   "display": "standalone",
