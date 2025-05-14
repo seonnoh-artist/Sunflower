@@ -36,7 +36,7 @@ let group_star = [];
 let free_star;
 let t = 270;
 let framecnt = 0;
-let lastTouchtime =0; 
+let lastTouchtime = 0;
 let touchTimeout = 300; //ms ,  터치 종료로 간주할 시간 
 let touch_chk = false;
 
@@ -115,25 +115,23 @@ function handleReleased() {
   wave_chk = false;
   count = 20;
   // console.log("release...");
+  /*
   fill(255, 255);
   textSize(30);
-  text("released... ", 200, 50);
-
+  text("released... ", 200, 50);  */
 }
 
 function draw() {
 
-  
   if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
     bg.loadPixels();
   }
 
-
-  
-   fill(255,0,0, 255);
+  /*
+  fill(255, 0, 0, 255);
   textSize(30);
-  text("started... ", 200, 50);
+  text("started... ", 200, 50);*/
 
 
   // console.log("count" + count);
@@ -185,10 +183,10 @@ function draw() {
     image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
 
-    fill(255, 255);
+    /*fill(255, 255);
     textSize(30);
-    text("img ", 50, 50);
-    console.log("img...");
+    text("img ", 50, 50);*/
+    // console.log("img...");
 
   } else if (count == 0) {  //이미지 선명해지면 별이 여러개 생성된다. 
     // tint(255, 255, 100, 10); //yelllow
@@ -298,10 +296,10 @@ function draw() {
     t = 270;
     lastTouchtime = millis(); // 마지막 시간을 기록합니다. 
     touch_chk = true;
-  } 
+  }
 
   //터치종료후
-   if(touch_chk && (millis()- lastTouchtime > touchTimeout)){  
+  if (touch_chk && (millis() - lastTouchtime > touchTimeout)) {
     handleReleased(); // 터치가 끝난 것으로 간주합니다. 
     touch_chk = false;
   }
