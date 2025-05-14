@@ -112,6 +112,10 @@ function mouseReleased() {
   wave_chk = false;
   count = 20;
   // console.log("release...");
+  fill(255,255);
+  textSize(30);
+    text("released... ", 200, 50);
+
 }
 
 function draw() {
@@ -166,10 +170,11 @@ function draw() {
     count--;
     let alpha = 255 - count * 50;
     tint(255, alpha);
-    fill(255, 255);
+    
     image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
 
+    fill(255, 255);
     textSize(30);
     text("img ", 50, 50);
     console.log("img...");
