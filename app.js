@@ -108,14 +108,21 @@ function initializeArt() {
   console.log('group_star[0] =', group_star[0]);
 }
 
-function mouseReleased() {
+function handleReleased() {
   wave_chk = false;
   count = 20;
   // console.log("release...");
-  fill(255,255);
+  fill(255, 255);
   textSize(30);
-    text("released... ", 200, 50);
+  text("released... ", 200, 50);
 
+}
+
+function touchEnded() {
+  handleReleased();
+}
+function mouseReleased() {
+  handleReleased();
 }
 
 function draw() {
@@ -170,7 +177,7 @@ function draw() {
     count--;
     let alpha = 255 - count * 50;
     tint(255, alpha);
-    
+
     image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
 
