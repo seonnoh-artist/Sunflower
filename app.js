@@ -36,6 +36,9 @@ let group_star = [];
 let free_star;
 let t = 270;
 let framecnt = 0;
+let lastTouchtime =0; 
+let touchTimeout = 300; //ms ,  터치 종료로 간주할 시간 
+let touch_chk = false;
 
 //별 그리기 클래스
 class star {
@@ -118,19 +121,14 @@ function handleReleased() {
 
 }
 
-function touchEnded() {
-  handleReleased();
-}
-function mouseReleased() {
-  handleReleased();
-}
-
 function draw() {
 
   if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
     bg.loadPixels();
   }
+
+ 
 
   // console.log("count" + count);
   framecnt++;
@@ -295,7 +293,16 @@ function draw() {
     // console.log("rand_img" + rand_img);
     image(particleImage[rand_img], mouseX, mouseY, ran_rid, ran_rid);
     t = 270;
+    lastTouchtime = millis(); // 마지막 시간을 기록합니다. 
+    touch_chk = true;
+  } else{
+    touch_chk = false;
   }
+
+   if(!touch_chk && (millis()- lastTouchtime > touchTimeout)){  
+    handleReleased(); // 터치가 끝난 것으로 간주합니다. 
+  }
+
 }
 
 
