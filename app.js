@@ -126,7 +126,7 @@ function draw() {
   if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
     bg.loadPixels();
-  }g
+  }
 
   // console.log("count" + count);
   framecnt++;
@@ -299,7 +299,6 @@ function draw() {
     handleReleased(); // 터치가 끝난 것으로 간주합니다. 
     touch_chk = false;
   }
-
 }
 
 
