@@ -165,8 +165,8 @@ function draw() {
     // 마지막 몇초전은 점점 선명한 배경이미지로 그려준다.
     count--;
     let alpha = 255 - count * 50;
-    // tint(255, alpha);
-    //  image(bg, 0, 0, width , height);
+     tint(255, alpha);
+      image(bg, 0, 0, width , height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
   } else if (count == 0) {  //이미지 선명해지면 별이 여러개 생성된다. 
     // tint(255, 255, 100, 10); //yelllow
