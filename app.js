@@ -79,9 +79,9 @@ function initializeArt() {
   cnv.parent('art-container');
   cnv.position(0, 0); //좌표 틀어짐 방지 
   resizeCanvas(windowWidth, windowHeight); //강제 크기 재설정
-  image(bg, 0, 0, width, height);
-  bg.loadPixels();
- // console.log("로드픽셀");
+ // image(bg, 0, 0, width, height);
+  //bg.loadPixels();
+  // console.log("로드픽셀");
 
   // 랜덤별
   let particle_random = int(random(load_star_num));
@@ -90,7 +90,7 @@ function initializeArt() {
   let p_x = random(width);
   let p_y = random(height);
   free_star = new star(p_star, size, p_x, p_y);
-  
+
   group_star = []; // 기존 별 배열 초기화화
 
   for (let i = 0; i < star_num; i++) {
@@ -104,17 +104,22 @@ function initializeArt() {
     );
     group_star[i] = new star(p_star, size, p_x, p_y); // 별을 마구마구 만든다.
   }
-  console.log('group_star.length = ' , group_star.length);
+  console.log('group_star.length = ', group_star.length);
   console.log('group_star[0] =', group_star[0]);
 }
 
 function mouseReleased() {
   wave_chk = false;
   count = 20;
- // console.log("release...");
+  // console.log("release...");
 }
 
 function draw() {
+
+  if(!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
+    image(bg, 0, 0, width, height);
+    bg.loadPixels();
+  }
 
   // console.log("count" + count);
   framecnt++;
@@ -128,10 +133,10 @@ function draw() {
     let p_x = random(width);
     let p_y = random(height);
 
-    if(free_star){     //실제로 이니셜라이즈되어서 존재하면 그린다. 
+    if (free_star) {     //실제로 이니셜라이즈되어서 존재하면 그린다. 
       free_star.update(p_star, size, p_x, p_y);
       free_star.display();
-    } else{
+    } else {
       free_star = new star(p_star, size, p_x, p_y); //없으면가져온다. 
     }
   }
@@ -166,6 +171,7 @@ function draw() {
   } else if (count == 0) {  //이미지 선명해지면 별이 여러개 생성된다. 
     // tint(255, 255, 100, 10); //yelllow
     tint(255, 255, 255, 50); //yelllow
+
     image(bg, 0, 0, width, height);
     count--;
     for (let i = 0; i < star_num; i++) {
@@ -175,10 +181,10 @@ function draw() {
       let p_x = random(width);
       let p_y = random(height);
 
-      if(group_star[i]){     //실제로 이니셜라이즈되어서 존재하면 그린다. 
+      if (group_star[i]) {     //실제로 이니셜라이즈되어서 존재하면 그린다. 
         group_star[i].update(p_star, size, p_x, p_y);
         group_star[i].display();
-      }else{
+      } else {
         group_star[i] = new star(p_star, size, p_x, p_y); // 없으면 별을 마구마구 만든다.
       }
     }
