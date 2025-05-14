@@ -79,7 +79,7 @@ function initializeArt() {
   cnv.parent('art-container');
   cnv.position(0, 0); //좌표 틀어짐 방지 
   resizeCanvas(windowWidth, windowHeight); //강제 크기 재설정
- // image(bg, 0, 0, width, height);
+  // image(bg, 0, 0, width, height);
   //bg.loadPixels();
   // console.log("로드픽셀");
 
@@ -116,7 +116,7 @@ function mouseReleased() {
 
 function draw() {
 
-  if(!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
+  if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
     bg.loadPixels();
   }
@@ -165,13 +165,18 @@ function draw() {
     // 마지막 몇초전은 점점 선명한 배경이미지로 그려준다.
     count--;
     let alpha = 255 - count * 50;
-     tint(255, alpha);
-      image(bg, 0, 0, width , height);
+    tint(255, alpha);
+    fill(255, 255);
+    image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
+
+    textSize(30);
+    text("img ", 50, 50);
+    console.log("img...");
+
   } else if (count == 0) {  //이미지 선명해지면 별이 여러개 생성된다. 
     // tint(255, 255, 100, 10); //yelllow
     tint(255, 255, 255, 50); //yelllow
-
     image(bg, 0, 0, width, height);
     count--;
     for (let i = 0; i < star_num; i++) {
@@ -275,7 +280,7 @@ function draw() {
     tint(255, random(100, 255));
     let rand_img = 0;
     rand_img = int(random(4));
-    console.log("rand_img" + rand_img);
+    // console.log("rand_img" + rand_img);
     image(particleImage[rand_img], mouseX, mouseY, ran_rid, ran_rid);
     t = 270;
   }
