@@ -43,7 +43,7 @@ class star {
     this.p_star = p_star;
     this.size = size;
     this.p_x = p_x;
-    this.p_y = p_y;b
+    this.p_y = p_y;
     this.timeout = 10;
   }
 
@@ -131,6 +131,8 @@ function draw() {
     if(free_star){     //실제로 이니셜라이즈되어서 존재하면 그린다. 
       free_star.update(p_star, size, p_x, p_y);
       free_star.display();
+    } else{
+      free_star = new star(p_star, size, p_x, p_y); //없으면가져온다. 
     }
   }
 
@@ -164,9 +166,8 @@ function draw() {
   } else if (count == 0) {  //이미지 선명해지면 별이 여러개 생성된다. 
     // tint(255, 255, 100, 10); //yelllow
     tint(255, 255, 255, 50); //yelllow
-    image(bg, 0, 0, width, height, bg.width, bg.height);
+    image(bg, 0, 0, width, height);
     count--;
-    console.log("make stars..." + star_num);
     for (let i = 0; i < star_num; i++) {
       let particle_random = int(random(load_star_num));
       let p_star = particleImage[particle_random];
@@ -177,6 +178,8 @@ function draw() {
       if(group_star[i]){     //실제로 이니셜라이즈되어서 존재하면 그린다. 
         group_star[i].update(p_star, size, p_x, p_y);
         group_star[i].display();
+      }else{
+        group_star[i] = new star(p_star, size, p_x, p_y); // 없으면 별을 마구마구 만든다.
       }
     }
   } else {
