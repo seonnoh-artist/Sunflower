@@ -126,6 +126,7 @@ function draw() {
   if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
     bg.loadPixels();
+    return;
   }
 
   /*
@@ -177,9 +178,12 @@ function draw() {
   if (count > 0) {
     // 마지막 몇초전은 점점 선명한 배경이미지로 그려준다.
     count--;
-    let alpha = 255 - count * 50;
-    tint(255, alpha);
 
+    /*
+    let alpha = 255 - count * 50;
+    tint(255, alpha);*/
+
+    tint(255, 255,255, 50);
     image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
 
