@@ -134,22 +134,24 @@ function draw() {
     return;
   }*/
 
-    let fps = frameRate();
+  // let fps = frameRate();
+  // console.log("frame" +  fps);
 
-  console.log("frame" +  fps);
+  let now = minute() % 2;
 
-  let now = minute()%2;
-
-  if (now >=0 && now < 1) {
-    console.log("continue");
+  if (now >= 0 && now < 1) {
     frameRate(60);
-  } else {
-    console.log("pass");
-    background(0,0, 0);  // 전력을 가장 낮춘다. 
-    fill(255,255,255);
+    fill(255, 255, 255);
     textSize(32);
     textAlign(CENTER, CENTER);
-    text('전시 시간이 아닙니다.' , width/2, height/2);
+    let n = minute() ;
+    text(n, width / 2, height / 2);
+  } else {
+    background(0, 0, 0);  // 전력을 가장 낮춘다. 
+    fill(255, 255, 255);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('전시 시간이 아닙니다.', width / 2, height / 2);
     frameRate(1);
     return;
   }
