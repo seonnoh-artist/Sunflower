@@ -122,31 +122,12 @@ function handleReleased() {
 }
 
 function draw() {
-  // 사용시간 설정 
-  /*
+ 
+  // 전시 시간 설정  9시~22시
   let now = hour();
 
-  if (now > 9 && now < 22) {
-    console.log("continue");
-  } else {
-    console.log("pass");
-    background(255, 0, 0);
-    return;
-  }*/
-
-  // let fps = frameRate();
-  // console.log("frame" +  fps);
-
-  let now = minute() % 2;
-
-  if (now >= 0 && now < 1) {
+  if (now > 9 && now < 22) {    
     frameRate(60);
-    /*
-    fill(255, 255, 255);
-    textSize(32);
-    textAlign(CENTER, CENTER);
-    let n = minute() ;
-    text(n, width / 2, height / 2);*/
   } else {
     background(0, 0, 0);  // 전력을 가장 낮춘다. 
     fill(255, 255, 255);
@@ -156,6 +137,23 @@ function draw() {
     frameRate(1);
     return;
   }
+
+
+
+  /*//테스트용   
+    let now = minute() % 2;
+  
+    if (now >= 0 && now < 1) {
+      frameRate(60);
+    } else {
+      background(0, 0, 0);  // 전력을 가장 낮춘다. 
+      fill(255, 255, 255);
+      textSize(32);
+      textAlign(CENTER, CENTER);
+      text('전시 시간이 아닙니다.', width / 2, height / 2);
+      frameRate(1);
+      return;
+    }*/
 
 
 
