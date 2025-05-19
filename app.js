@@ -141,11 +141,12 @@ function draw() {
 
   if (now >= 0 && now < 1) {
     frameRate(60);
+    /*
     fill(255, 255, 255);
     textSize(32);
     textAlign(CENTER, CENTER);
     let n = minute() ;
-    text(n, width / 2, height / 2);
+    text(n, width / 2, height / 2);*/
   } else {
     background(0, 0, 0);  // 전력을 가장 낮춘다. 
     fill(255, 255, 255);
