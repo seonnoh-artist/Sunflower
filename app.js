@@ -122,6 +122,39 @@ function handleReleased() {
 }
 
 function draw() {
+  // 사용시간 설정 
+  /*
+  let now = hour();
+
+  if (now > 9 && now < 22) {
+    console.log("continue");
+  } else {
+    console.log("pass");
+    background(255, 0, 0);
+    return;
+  }*/
+
+    let fps = frameRate();
+
+  console.log("frame" +  fps);
+
+  let now = minute()%2;
+
+  if (now >=0 && now < 1) {
+    console.log("continue");
+    frameRate(60);
+  } else {
+    console.log("pass");
+    background(0,0, 0);  // 전력을 가장 낮춘다. 
+    fill(255,255,255);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('전시 시간이 아닙니다.' , width/2, height/2);
+    frameRate(1);
+    return;
+  }
+
+
 
   if (!bg) {   // 데이터 없으면 가져온다..... //아이패드에서 자주 있는 에러임.
     image(bg, 0, 0, width, height);
@@ -138,6 +171,7 @@ function draw() {
   // console.log("count" + count);
   framecnt++;
   if (framecnt == 100) framecnt = 0;
+
   let random_delay_frame_cnt = int(random(5, 20));
   // 랜덤으로 딜레이되는 시간만큼 별을 그려준다. (계속 고정)
   if (framecnt % random_delay_frame_cnt == 0) {
@@ -183,7 +217,7 @@ function draw() {
     let alpha = 255 - count * 50;
     tint(255, alpha);*/
 
-    tint(255, 255,255, 50);
+    tint(255, 255, 255, 50);
     image(bg, 0, 0, width, height);
     blend(bg, 0, 0, bg.width, bg.height, 0, 0, width, height, LIGHTEST);
 
