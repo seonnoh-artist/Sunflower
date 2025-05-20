@@ -33,7 +33,7 @@ let h = 0;
 let P = Math.PI / 20;// 꽃잎수다.
 let petal_curve;
 let bg;
-let ipad_mic = 0.05;  //컴퓨터에서는 0.3  아이패드 입력 민감도가 낮다. 
+let ipad_mic = 0.03;  //컴퓨터에서는 0.3 아이패드도 일단 동일하게. 아이폰폰 입력 민감도가 낮다.0~0.05 //REDME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function initializeArt() { 
   colorMode(HSB, 360,100, 100, 100); // hue saturation brightness  alpha
