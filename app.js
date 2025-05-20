@@ -57,12 +57,13 @@ function mousePressed() {
       started = true;
     });
   }
-  console.log("mouseX" + mouseX + "mouseY" + mouseY);   //555 542
+  //console.log("mouseX" + mouseX + "mouseY" + mouseY);   //555 542
 }
 
 function draw() {
   background(0, 0, 0, 10);
 
+  /*
   if (!started) {
     fill(255, 0, 100);
     stroke(255, 0, 100);
@@ -70,7 +71,7 @@ function draw() {
     textSize(32);
     text("클릭해서 마이크 활성화", w, h);
     return;
-  }
+  }*/
 
   // 마이크 입력값 받아오기
   vol = mic.getLevel();
