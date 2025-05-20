@@ -34,24 +34,30 @@ let P = Math.PI / 20;// 꽃잎수다.
 let petal_curve;
 let bg;
 let micSensitivity = 0.02;  //컴퓨터에서는 0.3 아이패드도 일단 동일하게. 아이폰폰 입력 민감도가 낮다.0~0.05 //REDME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-let log_str='';
+let log_str = '';
 
 // 기기 별로 마이크 감도 달리한다.  아이폰 0.05, 아이패드 프로:0.03  아이패드 미니:0.015~0.02 PC 0.3
 function detectDevice() {
   const ua = navigator.userAgent.toLowerCase();
-  if (ua.includes('ipad')) {
+  const isIpad = (ua.includes("ipad") ||
+    (ua.includes("macintosh") && 'ontouchend' in document));
+  const isIphone = ua.includes("iphone");
+
+  if (isIpad) {
     micSensitivity = 0.02;
-    log_str = "ipad";
-  } else if (ua.includes('iphone')) {
+    log_str= "iPad";
+  } else if (isIphone) {
     micSensitivity = 0.05;
-    log_str = "iphone";
+    log_str= "iPhone";
   } else {
-    micSensitivity = 0.3;
-    log_str = "etc";
+    micSensitivity = 0.3; // 기본값 (데스크탑 등)
+    log_str= "ETC";
   }
+
+  console.log("Device detected → micSensitivity:", micSensitivity);
 }
+
 function initializeArt() {
- 
 
   colorMode(HSB, 360, 100, 100, 100); // hue saturation brightness  alpha
   const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
@@ -81,10 +87,10 @@ function printlog() {
   fill(255, 0, 100);
   stroke(255, 0, 100);
   textSize(32);
-  text(log_str, width/4, height/4);
+  text(log_str, width / 4, height / 4);
 }
 function draw() {
-  
+
   background(0, 0, 0, 10);
   printlog();
   if (!started) {
