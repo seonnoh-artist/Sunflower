@@ -65,13 +65,12 @@ function draw() {
 
   
   if (!started) {
-    /*
     fill(255, 0, 100);
     stroke(255, 0, 100);
     textAlign(CENTER, CENTER);
     textSize(32);
     text("클릭해서 마이크 활성화", w, h);
-    return;*/
+    return;
   }
 
   // 마이크 입력값 받아오기
