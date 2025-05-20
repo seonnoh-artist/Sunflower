@@ -33,10 +33,27 @@ let h = 0;
 let P = Math.PI / 20;// 꽃잎수다.
 let petal_curve;
 let bg;
-let ipad_mic = 0.02;  //컴퓨터에서는 0.3 아이패드도 일단 동일하게. 아이폰폰 입력 민감도가 낮다.0~0.05 //REDME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+let micSensitivity = 0.02;  //컴퓨터에서는 0.3 아이패드도 일단 동일하게. 아이폰폰 입력 민감도가 낮다.0~0.05 //REDME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+let log_str='';
 
-function initializeArt() { 
-  colorMode(HSB, 360,100, 100, 100); // hue saturation brightness  alpha
+// 기기 별로 마이크 감도 달리한다.  아이폰 0.05, 아이패드 프로:0.03  아이패드 미니:0.015~0.02 PC 0.3
+function detectDevice() {
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes('ipad')) {
+    micSensitivity = 0.02;
+    log_str = "ipad";
+  } else if (ua.includes('iphone')) {
+    micSensitivity = 0.05;
+    log_str = "iphone";
+  } else {
+    micSensitivity = 0.3;
+    log_str = "etc";
+  }
+}
+function initializeArt() {
+ 
+
+  colorMode(HSB, 360, 100, 100, 100); // hue saturation brightness  alpha
   const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
   cnv.parent('art-container');
   cnv.position(0, 0); //좌표 틀어짐 방지 
@@ -47,6 +64,7 @@ function initializeArt() {
   mic.start();
   w = width / 2;
   h = height / 2;
+  detectDevice(); //기기 감도 설정 
 }
 
 function mousePressed() {
@@ -59,11 +77,16 @@ function mousePressed() {
   }
   //console.log("mouseX" + mouseX + "mouseY" + mouseY);   //555 542
 }
-
+function printlog() {
+  fill(255, 0, 100);
+  stroke(255, 0, 100);
+  textSize(32);
+  text(log_str, width/4, height/4);
+}
 function draw() {
-  background(0, 0, 0, 10);
-
   
+  background(0, 0, 0, 10);
+  printlog();
   if (!started) {
     /*
     fill(255, 0, 100);
@@ -80,20 +103,20 @@ function draw() {
   translate(w, h);
 
   // 소리가 커질수록 꽃잎 수 증가
-  let n = map(vol, 0, ipad_mic, 0.1, 8, true);  //초기 n = 0.1;
+  let n = map(vol, 0, micSensitivity, 0.1, 8, true);  //초기 n = 0.1;
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
   let N = 360 / 10;
-  N = 30; //map(vol, 0, ipad_mic, 30, 60, true);
+  N = 30; //map(vol, 0, micSensitivity, 30, 60, true);
   let noise = map(vol, 0, 0.3, 1, 1.5, true);
 
   //꽃잎 그리기
   let petalCount = 250;
   let petalLength = 550;
   let petalWidth = 70;
-  let petal_scale_before = map(vol, 0, ipad_mic, 1, 1.5, true);
-  hue = map(vol, 0, ipad_mic, 40, 60);
+  let petal_scale_before = map(vol, 0, micSensitivity, 1, 1.5, true);
+  hue = map(vol, 0, micSensitivity, 40, 60);
   hue = 105 - hue;  // 40+65에서 빼기    //꽃잎 노랑 진하기를 결정한다 60 연두 40 주황황
-  // alpha = map(vol, 0, ipad_mic, 5, 10, true);
+  // alpha = map(vol, 0, micSensitivity, 5, 10, true);
   fill(hue, 100, 100, 4);
   noStroke();
   for (i = 0; i < petalCount; i++) {
@@ -111,13 +134,13 @@ function draw() {
   }
 
   //해바라기의 동그라미 짙음음
-  hue = map(vol, 0, ipad_mic, 40, 60);
+  hue = map(vol, 0, micSensitivity, 40, 60);
   hue = 105 - hue;  // 40+65에서 빼기    //꽃잎 노랑 진하기를 결정한다 60 연두 40 주황황
-  alpha = map(vol, 0, ipad_mic, 1, 10, true);
+  alpha = map(vol, 0, micSensitivity, 1, 10, true);
 
   noFill();
-  let ciricle_R = map(vol, 0, ipad_mic, 350, 500, true);
-  let seed_S = map(vol, 0, ipad_mic, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
+  let ciricle_R = map(vol, 0, micSensitivity, 350, 500, true);
+  let seed_S = map(vol, 0, micSensitivity, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
   seed_S = 50 + 70 - seed_S;
   for (i = 0; i < ciricle_R; i++) {
     alpha = map(i, 0, ciricle_R, 0, 100);
@@ -129,7 +152,7 @@ function draw() {
   //해바라기 동그라미 연함 
   noFill();
   ciricle_R = ciricle_R * 0.7; //70프로로 줄인다. 
-  seed_S = map(vol, 0, ipad_mic, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
+  seed_S = map(vol, 0, micSensitivity, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
   for (i = 0; i < ciricle_R; i++) {
     alpha = map(i, 0, ciricle_R, 0, 100);
     alpha = 100 - alpha;
@@ -139,9 +162,9 @@ function draw() {
 
   // 해바라기 씨앗 패턴턴- 사운드 시각화 
   noFill();
-  strokeWeight(map(vol, 0, ipad_mic, 1, 3));
-  let petal_scale = map(vol, 0, ipad_mic, 1, 1.5, true);
-  let seed_color = map(vol, 0, ipad_mic, 15, 20, true);
+  strokeWeight(map(vol, 0, micSensitivity, 1, 3));
+  let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true);
+  let seed_color = map(vol, 0, micSensitivity, 15, 20, true);
 
   for (i = 0; i < TAU; i += P) {
     for (r = -N; r < 155; r += N) {    //초기 r 155 
