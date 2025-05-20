@@ -1,6 +1,6 @@
 {
-  "name": "Make a wish",
-  "short_name": "Make a Wish",
+  "name": "Sunflower",
+  "short_name": "Sunflower",
   "description": "A gallery for interactive art",
   "start_url": "./index.html",
   "display": "standalone",

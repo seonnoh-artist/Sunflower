@@ -34,9 +34,13 @@ let P = Math.PI / 20;// 꽃잎수다.
 let petal_curve;
 let bg;
 
-function setup() {
-  colorMode(HSB, 360, 100, 100, 100); // hue, saturation, bright alpha
-  createCanvas(1000, 1000);
+function initializeArt() { 
+  colorMode(HSB, 360,100, 100, 100); // hue saturation brightness  alpha
+  const cnv = createCanvas(windowWidth, windowHeight); // 원래 setup()의 createCanvas() 부분만 여기
+  cnv.parent('art-container');
+  cnv.position(0, 0); //좌표 틀어짐 방지 
+  resizeCanvas(windowWidth, windowHeight); //강제 크기 재설정
+
   stroke(255);
   mic = new p5.AudioIn();
   mic.start();
@@ -52,7 +56,6 @@ function mousePressed() {
       started = true;
     });
   }
-
   console.log("mouseX" + mouseX + "mouseY" + mouseY);   //555 542
 }
 
