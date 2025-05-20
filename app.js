@@ -33,6 +33,7 @@ let h = 0;
 let P = Math.PI / 20;// 꽃잎수다.
 let petal_curve;
 let bg;
+let ipad_mic = 0.05;  //컴퓨터에서는 0.3  아이패드 입력 민감도가 낮다. 
 
 function initializeArt() { 
   colorMode(HSB, 360,100, 100, 100); // hue saturation brightness  alpha
@@ -77,20 +78,20 @@ function draw() {
   translate(w, h);
 
   // 소리가 커질수록 꽃잎 수 증가
-  let n = map(vol, 0, 0.3, 0.1, 8, true);  //초기 n = 0.1;
+  let n = map(vol, 0, ipad_mic, 0.1, 8, true);  //초기 n = 0.1;
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
   let N = 360 / 10;
-  N = 30; //map(vol, 0, 0.3, 30, 60, true);
+  N = 30; //map(vol, 0, ipad_mic, 30, 60, true);
   let noise = map(vol, 0, 0.3, 1, 1.5, true);
 
   //꽃잎 그리기
   let petalCount = 250;
   let petalLength = 550;
   let petalWidth = 70;
-  let petal_scale_before = map(vol, 0, 0.3, 1, 1.5, true);
-  hue = map(vol, 0, 0.3, 40, 60);
+  let petal_scale_before = map(vol, 0, ipad_mic, 1, 1.5, true);
+  hue = map(vol, 0, ipad_mic, 40, 60);
   hue = 105 - hue;  // 40+65에서 빼기    //꽃잎 노랑 진하기를 결정한다 60 연두 40 주황황
-  // alpha = map(vol, 0, 0.3, 5, 10, true);
+  // alpha = map(vol, 0, ipad_mic, 5, 10, true);
   fill(hue, 100, 100, 4);
   noStroke();
   for (i = 0; i < petalCount; i++) {
@@ -108,13 +109,13 @@ function draw() {
   }
 
   //해바라기의 동그라미 짙음음
-  hue = map(vol, 0, 0.3, 40, 60);
+  hue = map(vol, 0, ipad_mic, 40, 60);
   hue = 105 - hue;  // 40+65에서 빼기    //꽃잎 노랑 진하기를 결정한다 60 연두 40 주황황
-  alpha = map(vol, 0, 0.3, 1, 10, true);
+  alpha = map(vol, 0, ipad_mic, 1, 10, true);
 
   noFill();
-  let ciricle_R = map(vol, 0, 0.3, 350, 500, true);
-  let seed_S = map(vol, 0, 0.3, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
+  let ciricle_R = map(vol, 0, ipad_mic, 350, 500, true);
+  let seed_S = map(vol, 0, ipad_mic, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
   seed_S = 50 + 70 - seed_S;
   for (i = 0; i < ciricle_R; i++) {
     alpha = map(i, 0, ciricle_R, 0, 100);
@@ -126,7 +127,7 @@ function draw() {
   //해바라기 동그라미 연함 
   noFill();
   ciricle_R = ciricle_R * 0.7; //70프로로 줄인다. 
-  seed_S = map(vol, 0, 0.3, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
+  seed_S = map(vol, 0, ipad_mic, 50, 70, true); //갈색 색상  50 지튼 갈색 70 따뜻갈색 
   for (i = 0; i < ciricle_R; i++) {
     alpha = map(i, 0, ciricle_R, 0, 100);
     alpha = 100 - alpha;
@@ -136,9 +137,9 @@ function draw() {
 
   // 해바라기 씨앗 패턴턴- 사운드 시각화 
   noFill();
-  strokeWeight(map(vol, 0, 0.3, 1, 3));
-  let petal_scale = map(vol, 0, 0.3, 1, 1.5, true);
-  let seed_color = map(vol, 0, 0.3, 15, 20, true);
+  strokeWeight(map(vol, 0, ipad_mic, 1, 3));
+  let petal_scale = map(vol, 0, ipad_mic, 1, 1.5, true);
+  let seed_color = map(vol, 0, ipad_mic, 15, 20, true);
 
   for (i = 0; i < TAU; i += P) {
     for (r = -N; r < 155; r += N) {    //초기 r 155 
