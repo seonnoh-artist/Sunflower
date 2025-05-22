@@ -84,10 +84,11 @@ function mousePressed() {
   //console.log("mouseX" + mouseX + "mouseY" + mouseY);   //555 542
 }
 function printlog() {
+  /*
   fill(255, 0, 100);
   stroke(255, 0, 100);
   textSize(32);
-  text(log_str, width / 4, height / 4);
+  text(log_str, width / 4, height / 4);*/
 }
 function draw() {
 
