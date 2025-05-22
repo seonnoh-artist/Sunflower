@@ -38,6 +38,7 @@ let petal_curve;
 let bg;
 let micSensitivity = 0.02;
 let log_str = '';
+let sunflower_scale=0.7; //해바라기 크기 비율 
 
 // ==================== 기기 감지 ====================
 
@@ -64,10 +65,6 @@ function detectDevice() {
 
 function initializeArt() {
   colorMode(HSB, 360, 100, 100, 100);
-
-  //화면 크기를 줄인다. 
-  canvasWidth = windowWidth*0.7;
-  canvasHeight = windowHeight;
 
   const cnv = createCanvas(windowWidth, windowHeight);
   cnv.parent('art-container');
@@ -117,8 +114,8 @@ function draw() {
   let n = map(vol, 0, micSensitivity, 0.1, 8, true);
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
   let petalCount = 250;
-  let petalLength = 550;
-  let petalWidth = 70;
+  let petalLength = 550*sunflower_scale;
+  let petalWidth = 70*sunflower_scale;
   let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true);
   let hue = 105 - map(vol, 0, micSensitivity, 40, 60);
 
@@ -138,7 +135,7 @@ function draw() {
   }
 
   // ===== 해바라기 중심 동그라미 (짙은 원) =====
-  let circleR = map(vol, 0, micSensitivity, 350, 500, true);
+  let circleR = map(vol, 0, micSensitivity, 350, 500, true)*sunflower_scale;
   let seed_S = 50 + 70 - map(vol, 0, micSensitivity, 50, 70, true);
 
   noFill();
