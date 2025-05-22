@@ -108,6 +108,10 @@ function draw() {
   //해바라기 그리는 부분으로 좌표 이동 
   translate(w, h);
 
+
+  log_str = vol;
+  printlog();
+
   // 소리가 커질수록 꽃잎 수 증가
   let n = map(vol, 0, micSensitivity, 0.1, 8, true);  //초기 n = 0.1;
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
