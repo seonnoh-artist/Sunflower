@@ -160,7 +160,7 @@ function draw() {
   let seed_color = map(vol, 0, micSensitivity, 15, 20, true);
 
   for (let i = 0; i < TAU; i += P) {
-    for (let r = -30; r < 155; r += 30) {
+    for (let r = -30; r < 155*sunflower_scale; r += 30) {
       let F = f / 99;
       let Z = i + n - F;
       let K = r + R % 60;
