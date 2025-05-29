@@ -99,6 +99,7 @@ function mousePressed() {
 // ==================== 메인 드로잉 루프 ====================
 
 function draw() {
+  frameRate(40);
   background(0, 0, 0, 10);
 
   if (!started) return;
