@@ -56,6 +56,14 @@ function detectDevice() {
   console.log("Device detected → micSensitivity:", micSensitivity);
 }
 
+function printLog(){
+  fill(255);
+  textSize(20);
+  text(log_str, 100, 100);
+  let volume_str = mic.getLevel();
+  text("vol: " + nf(volume_str,1,3), 100, 300);
+}
+
 // ==================== 작품 초기화 ====================
 
 function initializeArt() {
@@ -103,6 +111,8 @@ function draw() {
   if (vol < micSensitivity * 0.05) {
     breathAnim = 1 + sin(frameCount * 0.02) * 0.1;
   }
+
+  printLog();
 
   // ===== 꽃잎 =====
   let n = map(vol, 0, micSensitivity, 0.1, 8, true);
