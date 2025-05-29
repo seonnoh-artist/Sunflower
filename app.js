@@ -43,7 +43,7 @@ function detectDevice() {
   const isIphone = ua.includes("iphone");
 
   if (isIpad) {
-    micSensitivity = 0.01;
+    micSensitivity = 0.005;
     log_str = "iPad";
   } else if (isIphone) {
     micSensitivity = 0.05;
@@ -61,7 +61,7 @@ function printLog(){
   textSize(20);
   text(log_str, 100, 100);
   let volume_str = mic.getLevel();
-  text("vol: " + nf(volume_str,1,3), 100, 300);
+  text("vol: " + nf(volume_str,1,6), 100, 300);
 }
 
 // ==================== 작품 초기화 ====================
