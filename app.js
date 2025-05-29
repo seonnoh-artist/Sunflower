@@ -34,6 +34,8 @@ let petal_curve;
 let micSensitivity = 0.02;
 let sunflower_scale = 0.7;
 let log_str = '';
+let lastVol = 0;
+let freezeCount = 0;
 
 // ==================== 기기 감지 ====================
 
@@ -75,8 +77,8 @@ function initializeArt() {
   resizeCanvas(windowWidth, windowHeight);
 
   stroke(255);
-  mic = new p5.AudioIn();
-  mic.start();
+ // mic = new p5.AudioIn();
+ // mic.start();
 
   w = width / 2;
   h = height / 2;
@@ -85,7 +87,6 @@ function initializeArt() {
 }
 
 // ==================== 마이크 활성화 ====================
-
 function mousePressed() {
   if (!started) {
     userStartAudio().then(() => {
@@ -95,16 +96,47 @@ function mousePressed() {
     });
   }
 }
+//=======================마이크 재활성화=====================
+function restartMic(){
+  if(mic){
+    mic.stop(); //기존 마이크 중지
+  }
+  mic =  new p5.AudioIn();
+  mic.start();
+  started = true;
+}
+//======================마이크 모니터링=======================
+function monitorMic() {
+  let currentVol = mic.getLevel();
+  if (currentVol === lastVol) {
+    freezeCount++;
+  } else {
+    freezeCount = 0;
+  }
+  lastVol = currentVol;
 
+  if (freezeCount > 100 && currentVol < 0.000001) {
+    console.warn("마이크 재시작 시도");
+    restartMic();
+    freezeCount = 0;
+  }
+}
 // ==================== 메인 드로잉 루프 ====================
 
 function draw() {
   frameRate(40);
   background(0, 0, 0, 10);
 
-  if (!started) return;
+  if (!started){
+    fill(255);
+    textSize(32);
+    text("마우스를 클릭해주세요.", w, h);
+    return;
+  } 
+  monitorMic(); //마이크 모니터링
 
   vol = mic.getLevel();
+
   translate(w, h);
 
   // ===== 조용할 때 숨쉬는 애니메이션 =====
