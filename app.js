@@ -124,7 +124,41 @@ function monitorMic() {
 // ==================== 메인 드로잉 루프 ====================
 
 function draw() {
-  frameRate(40);
+
+  // 전시 시간 설정  9시~22시
+  let now = hour();
+
+  if (now >= 9 && now < 22) {    
+    frameRate(40);
+  } else {
+    background(0, 0, 0);  // 전력을 가장 낮춘다.
+    noStroke(); 
+    fill(255);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text('전시 시간이 아닙니다.', width / 2, height / 2);
+    frameRate(1);
+    return;
+  }
+
+
+/*
+  //테스트용   
+    let now = minute() % 2;
+  
+    if (now >= 0 && now < 1) {
+      frameRate(40);
+    } else {
+      background(0, 0, 0);  // 전력을 가장 낮춘다. 
+      noStroke();
+      fill(255);
+      textSize(32);
+      textAlign(CENTER, CENTER);
+      text('전시 시간이 아닙니다.', width / 2, height / 2);
+      frameRate(1);
+      return;
+    }*/
+
   background(0, 0, 0, 10);
 
   if (!started){
