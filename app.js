@@ -108,9 +108,9 @@ function draw() {
 
   // ===== 조용할 때 숨쉬는 애니메이션 =====
   let breathAnim = 1;
-  if (vol < micSensitivity * 0.05) {
+ // if (vol < micSensitivity * 0.05) {
     breathAnim = 1 + sin(frameCount * 0.02) * 0.1;
-  }
+  //}
 
   printLog();
 
