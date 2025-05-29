@@ -16,7 +16,7 @@ function checkPassword() {
 
       document.getElementById('art-container').style.display = 'block';
       initializeArt();
-    }, 50); // 50~100ms 사이 권장
+    }, 50);
   } else {
     alert('Incorrect password');
   }
@@ -26,19 +26,14 @@ function checkPassword() {
 
 let mic;
 let vol = 0;
-let petals = 0;
-let t = 0;
 let started = false;
-let R = 0;
-let f = 0;
-let w = 0;
-let h = 0;
-let P = Math.PI / 20; // 꽃잎 간격
+let t = 0, R = 0, f = 0;
+let w = 0, h = 0;
+let P = Math.PI / 20; // 씨앗 간격
 let petal_curve;
-let bg;
 let micSensitivity = 0.02;
+let sunflower_scale = 0.7;
 let log_str = '';
-let sunflower_scale=0.7; //해바라기 크기 비율 
 
 // ==================== 기기 감지 ====================
 
@@ -93,31 +88,30 @@ function mousePressed() {
   }
 }
 
-// ==================== 디버그 로그 ====================
-
-function printlog() {
-  // 사용 시 text()를 통해 log_str 출력 가능
-}
-
 // ==================== 메인 드로잉 루프 ====================
 
 function draw() {
   background(0, 0, 0, 10);
-  printlog();
 
   if (!started) return;
 
   vol = mic.getLevel();
   translate(w, h);
 
+  // ===== 조용할 때 숨쉬는 애니메이션 =====
+  let breathAnim = 1;
+  if (vol < micSensitivity * 0.05) {
+    breathAnim = 1 + sin(frameCount * 0.02) * 0.1;
+  }
+
   // ===== 꽃잎 =====
   let n = map(vol, 0, micSensitivity, 0.1, 8, true);
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
   let petalCount = 250;
-  let petalLength = 550*sunflower_scale;
-  let petalWidth = 70*sunflower_scale;
-  let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true);
-  let hue = 105 - map(vol, 0, micSensitivity, 40, 60);
+  let petalLength = 550 * sunflower_scale; 
+  let petalWidth = 70 * sunflower_scale;  
+  let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true)*breathAnim; //조용할때 숨들이시기.
+  let hue = 105 - map(vol, 0, micSensitivity, 40, 60)*breathAnim;
 
   noStroke();
   fill(hue, 100, 100, 4);
@@ -135,7 +129,7 @@ function draw() {
   }
 
   // ===== 해바라기 중심 동그라미 (짙은 원) =====
-  let circleR = map(vol, 0, micSensitivity, 350, 500, true)*sunflower_scale;
+  let circleR = map(vol, 0, micSensitivity, 350, 500, true) * sunflower_scale * breathAnim;
   let seed_S = 50 + 70 - map(vol, 0, micSensitivity, 50, 70, true);
 
   noFill();
@@ -160,7 +154,7 @@ function draw() {
   let seed_color = map(vol, 0, micSensitivity, 15, 20, true);
 
   for (let i = 0; i < TAU; i += P) {
-    for (let r = -30; r < 155*sunflower_scale; r += 30) {
+    for (let r = -30; r < 155 * sunflower_scale; r += 30) {
       let F = f / 99;
       let Z = i + n - F;
       let K = r + R % 60;
@@ -188,7 +182,7 @@ function draw() {
   }
 
   f += P;
-  if (R >= 60) R = 0;
+  if (R >= 180) R = 0;
 }
 
 // ==================== 서비스 워커 등록 ====================
