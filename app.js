@@ -60,7 +60,7 @@ function saveExhibitionTime() {
     endHour = e;
     localStorage.setItem('startHour', startHour);
     localStorage.setItem('endHour', endHour);
-    alert('전시 시간이 저장되었습니다.');
+    alert('전시 시간이' + startHour + '-' +endHour +'시로 저장되었습니다.');
   } else {
     alert('0~23 사이의 숫자를 입력해주세요.');
   }
