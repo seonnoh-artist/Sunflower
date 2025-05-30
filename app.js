@@ -9,23 +9,7 @@ function checkPassword() {
   enteredPassword = document.getElementById('password').value;
 
   if (enteredPassword === password) {
-    // 전시 시간 로직 추가 
-    const now = new Date();
-    const hour = now.getHours();
-
-    if (startHour <= endHour) {
-      if (hour < startHour || hour >= endHour) {
-        alert(`현재 시간은 ${hour}시입니다. 전시 시간은 ${startHour}시 ~ ${endHour}시입니다.`);
-        return;
-      }
-    } else {
-      // 자정을 넘긴 경우 (예: 22~2시)
-      if (hour < startHour && hour >= endHour) {
-        alert(`현재 시간은 ${hour}시입니다. 전시 시간은 ${startHour}시 ~ ${endHour}시입니다.`);
-        return;
-      }
-    }
-
+ 
     document.activeElement.blur(); // 키보드 내려가기
 
     setTimeout(() => {
@@ -56,22 +40,22 @@ function saveExhibitionTime() {
   const e = parseInt(document.getElementById('end-hour').value);
 
 
-  if (s >= 0 && s <= 23 && e >= 0 && e <= 23) {
+  if (s < e) {
     startHour = s;
     endHour = e;
     localStorage.setItem('startHour', startHour);
     localStorage.setItem('endHour', endHour);
     alert('전시 시간이 ' + startHour + '-' + endHour + '시로 저장되었습니다.');
   } else {
-    alert('0~23 사이의 숫자를 입력해주세요.');
+    alert('전시 시간 설정이 잘못되었습니다다.');
   }
 }
 
 function changeHour(type, delta) {
   const input = document.getElementById(`${type}-hour`);
   let val = parseInt(input.value || '0') + delta;
-  if (val < 0) val = 23;
-  if (val > 23) val = 0;
+  if (val < 0) val = 24;
+  if (val > 24) val = 0;
   input.value = val;
 }
 
@@ -183,7 +167,7 @@ function monitorMic() {
     lastRestartedTime = now;
   }
 
-  if(getAudioContext().state !=='running'){
+  if(getAudioContext().state !=='running'){   //오디오 컨텍스트 중단시 재시작(중요)
     userStartAudio();
   }
 }
