@@ -2,11 +2,30 @@
 
 let password = '0000'; // 원하는 비밀번호로 수정
 let enteredPassword = '';
+let startHour = 10; // 전시 시간 설정 
+let endHour = 20;
 
 function checkPassword() {
   enteredPassword = document.getElementById('password').value;
 
   if (enteredPassword === password) {
+    // 전시 시간 로직 추가 
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (startHour <= endHour) {
+      if (hour < startHour || hour >= endHour) {
+        alert(`현재 시간은 ${hour}시입니다. 전시 시간은 ${startHour}시 ~ ${endHour}시입니다.`);
+        return;
+      }
+    } else {
+      // 자정을 넘긴 경우 (예: 22~2시)
+      if (hour < startHour && hour >= endHour) {
+        alert(`현재 시간은 ${hour}시입니다. 전시 시간은 ${startHour}시 ~ ${endHour}시입니다.`);
+        return;
+      }
+    }
+
     document.activeElement.blur(); // 키보드 내려가기
 
     setTimeout(() => {
@@ -20,6 +39,39 @@ function checkPassword() {
   } else {
     alert('Incorrect password');
   }
+}
+
+function loadExhibitionTime() {
+  const savedStart = localStorage.getItem('startHour');
+  const savedEnd = localStorage.getItem('endHour');
+  if (savedStart !== null) startHour = parseInt(savedStart);
+  if (savedEnd !== null) endHour = parseInt(savedEnd);
+
+  document.getElementById('start-hour').value = startHour;
+  document.getElementById('end-hour').value = endHour;
+}
+
+function saveExhibitionTime() {
+  const s = parseInt(document.getElementById('start-hour').value);
+  const e = parseInt(document.getElementById('end-hour').value);
+
+  if (s >= 0 && s <= 23 && e >= 0 && e <= 23) {
+    startHour = s;
+    endHour = e;
+    localStorage.setItem('startHour', startHour);
+    localStorage.setItem('endHour', endHour);
+    alert('전시 시간이 저장되었습니다.');
+  } else {
+    alert('0~23 사이의 숫자를 입력해주세요.');
+  }
+}
+
+function changeHour(type, delta) {
+  const input = document.getElementById(`${type}-hour`);
+  let val = parseInt(input.value || '0') + delta;
+  if (val < 0) val = 23;
+  if (val > 23) val = 0;
+  input.value = val;
 }
 
 // ==================== 전역 변수 ====================
@@ -58,12 +110,14 @@ function detectDevice() {
   console.log("Device detected → micSensitivity:", micSensitivity);
 }
 
-function printLog(){
+function printLog() {
   fill(255);
   textSize(20);
   text(log_str, 100, 100);
   let volume_str = mic.getLevel();
-  text("vol: " + nf(volume_str,1,6), 100, 300);
+  text("vol: " + nf(volume_str, 1, 6), 100, 300);
+  text("satrtHour: " + startHour, 100, 330);
+  text("endHour: " + endHour, 100, 360);
 }
 
 // ==================== 작품 초기화 ====================
@@ -77,8 +131,8 @@ function initializeArt() {
   resizeCanvas(windowWidth, windowHeight);
 
   stroke(255);
- // mic = new p5.AudioIn();
- // mic.start();
+  // mic = new p5.AudioIn();
+  // mic.start();
 
   w = width / 2;
   h = height / 2;
@@ -97,11 +151,11 @@ function mousePressed() {
   }
 }
 //=======================마이크 재활성화=====================
-function restartMic(){
-  if(mic){
+function restartMic() {
+  if (mic) {
     mic.stop(); //기존 마이크 중지
   }
-  mic =  new p5.AudioIn();
+  mic = new p5.AudioIn();
   mic.start();
   started = true;
 }
@@ -128,11 +182,11 @@ function draw() {
   // 전시 시간 설정  9시~22시
   let now = hour();
 
-  if (now >= 9 && now < 22) {    
+  if (now >= startHour && now < endHour) {
     frameRate(40);
   } else {
     background(0, 0, 0);  // 전력을 가장 낮춘다.
-    noStroke(); 
+    noStroke();
     fill(255);
     textSize(32);
     textAlign(CENTER, CENTER);
@@ -142,31 +196,31 @@ function draw() {
   }
 
 
-/*
-  //테스트용   
-    let now = minute() % 2;
-  
-    if (now >= 0 && now < 1) {
-      frameRate(40);
-    } else {
-      background(0, 0, 0);  // 전력을 가장 낮춘다. 
-      noStroke();
-      fill(255);
-      textSize(32);
-      textAlign(CENTER, CENTER);
-      text('전시 시간이 아닙니다.', width / 2, height / 2);
-      frameRate(1);
-      return;
-    }*/
+  /*
+    //테스트용   
+      let now = minute() % 2;
+    
+      if (now >= 0 && now < 1) {
+        frameRate(40);
+      } else {
+        background(0, 0, 0);  // 전력을 가장 낮춘다. 
+        noStroke();
+        fill(255);
+        textSize(32);
+        textAlign(CENTER, CENTER);
+        text('전시 시간이 아닙니다.', width / 2, height / 2);
+        frameRate(1);
+        return;
+      }*/
 
   background(0, 0, 0, 10);
 
-  if (!started){
+  if (!started) {
     fill(255);
     textSize(32);
     text("마우스를 클릭해주세요.", w, h);
     return;
-  } 
+  }
   monitorMic(); //마이크 모니터링
 
   vol = mic.getLevel();
@@ -175,8 +229,8 @@ function draw() {
 
   // ===== 조용할 때 숨쉬는 애니메이션 =====
   let breathAnim = 1;
- // if (vol < micSensitivity * 0.05) {
-    breathAnim = 1 + sin(frameCount * 0.02) * 0.1;
+  // if (vol < micSensitivity * 0.05) {
+  breathAnim = 1 + sin(frameCount * 0.02) * 0.1;
   //}
 
   printLog();
@@ -185,10 +239,10 @@ function draw() {
   let n = map(vol, 0, micSensitivity, 0.1, 8, true);
   petal_curve = map(vol, 0, 0.3, 1.2, 1.5);
   let petalCount = 250;
-  let petalLength = 550 * sunflower_scale; 
-  let petalWidth = 70 * sunflower_scale;  
-  let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true)*breathAnim; //조용할때 숨들이시기.
-  let hue = 105 - map(vol, 0, micSensitivity, 40, 60)*breathAnim;
+  let petalLength = 550 * sunflower_scale;
+  let petalWidth = 70 * sunflower_scale;
+  let petal_scale = map(vol, 0, micSensitivity, 1, 1.5, true) * breathAnim; //조용할때 숨들이시기.
+  let hue = 105 - map(vol, 0, micSensitivity, 40, 60) * breathAnim;
 
   noStroke();
   fill(hue, 100, 100, 4);
