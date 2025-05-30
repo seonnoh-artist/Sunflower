@@ -169,7 +169,7 @@ function monitorMic() {
   }
   lastVol = currentVol;
 
-  if (freezeCount > 100 && currentVol < 0.000001) {
+  if (freezeCount > 100 && currentVol < 0.0001) {
     console.warn("마이크 재시작 시도");
     restartMic();
     freezeCount = 0;
