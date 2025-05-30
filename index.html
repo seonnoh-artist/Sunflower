@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" , user-scalable="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0", user-scalable="no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="sunflower">
@@ -36,6 +36,8 @@
       position: flex;
       top: 0;
       left: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
     }
 
     canvas {
@@ -55,6 +57,31 @@
       height: 100%;
     }
 
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      gap: 20px;
+    }
+
+    .form-box {
+      background-color: white;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 90vw;
+      max-width: 400px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h1,
+    h2 {
+      margin-bottom: 10px;
+    }
+
     #art-container {
       margin: 0;
       padding: 0;
@@ -69,10 +96,6 @@
       /*바운스 풀투리프레시 방지*/
       width: 100%;
       height: 100%;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
     }
 
     #password-form {
@@ -102,35 +125,49 @@
       -webkit-touch-callout: none;
       outline: none;
     }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .time-row {
+      margin: 10px 0;
+    }
+
+    label {
+      margin-right: 5px;
+    }
   </style>
 
 </head>
+
 <body>
-  <div id="time-setting-form">
-    <h2>Time setting
-      <br> 최초 설정(10-20시)
-    </h2>
-    <div>
-      start:
-      <input type="number" id="start-hour" min="0" max="24"> 시
-      <button onclick="changeHour('start', -1)">▼</button>
-      <button onclick="changeHour('start', 1)">▲</button>
+  <div class="wrapper">
+    <div id="time-setting-form" class="form-box">
+      <h2>Time setting<br><small>최초 설정 (10–20시)</small></h2>
+      <div class="time-row">
+        <label for="start-hour">start:</label>
+        <input type="number" id="start-hour" min="0" max="24"> 시
+        <button onclick="changeHour('start', -1)">▼</button>
+        <button onclick="changeHour('start', 1)">▲</button>
+      </div>
+      <div class="time-row">
+        <label for="end-hour">end:</label>
+        <input type="number" id="end-hour" min="0" max="24"> 시
+        <button onclick="changeHour('end', -1)">▼</button>
+        <button onclick="changeHour('end', 1)">▲</button>
+      </div>
+      <button onclick="saveExhibitionTime()">Change / 시간 변경</button>
     </div>
-    <div>
-      end:
-      <input type="number" id="end-hour" min="0" max="24"> 시
-      <button onclick="changeHour('end', -1)">▼</button>
-      <button onclick="changeHour('end', 1)">▲</button>
+
+    <div id="password-form" class="form-box">
+      <h1>Enter Password</h1>
+      <p>비밀번호 입력후 실행</p>
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="checkPassword()">Submit</button>
     </div>
-    <button onclick="saveExhibitionTime()">Change / 시간 변경</button>
   </div>
-  <div id="password-form">
-    <h1>Enter Password
-      <br>비밀번호 입력후 실행
-    </h1>
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="checkPassword()">Submit</button>
-  </div>
+
 
   <script>
     // 캔버스 외부 터치에 대해 기본 동작 방지
