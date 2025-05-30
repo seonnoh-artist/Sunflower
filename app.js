@@ -169,10 +169,13 @@ function monitorMic() {
   }
   lastVol = currentVol;
 
-  if (freezeCount > 100 && currentVol < 0.0001) {
+  if (freezeCount > 100 ){//&& currentVol < 0.0002) {
     console.warn("마이크 재시작 시도");
     restartMic();
     freezeCount = 0;
+    fill(255);
+    textSize(32);
+    text("마이크재시작.", w, h);
   }
 }
 // ==================== 메인 드로잉 루프 ====================
