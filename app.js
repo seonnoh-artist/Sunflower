@@ -132,8 +132,8 @@ function initializeArt() {
   resizeCanvas(windowWidth, windowHeight);
 
   stroke(255);
-  // mic = new p5.AudioIn();
-  // mic.start();
+  //mic = new p5.AudioIn();
+  //mic.start();   //꼼수
 
   w = width / 2;
   h = height / 2;
@@ -159,6 +159,11 @@ function restartMic() {
   mic = new p5.AudioIn();
   mic.start();
   started = true;
+
+
+    fill(255);
+    textSize(32);
+    text("마이크재시작.", w, h);
 }
 //======================마이크 모니터링=======================
 function monitorMic() {
@@ -174,9 +179,7 @@ function monitorMic() {
     console.warn("마이크 재시작 시도");
     restartMic();
     freezeCount = 0;
-    fill(255);
-    textSize(32);
-    text("마이크재시작.", w, h);
+  
   }
 }
 // ==================== 메인 드로잉 루프 ====================
