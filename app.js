@@ -182,6 +182,10 @@ function monitorMic() {
     freezeCount = 0;
     lastRestartedTime = now;
   }
+
+  if(getAudioContext().state !=='running'){
+    userStartAudio();
+  }
 }
 // ==================== 메인 드로잉 루프 ====================
 
