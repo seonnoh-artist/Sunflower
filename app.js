@@ -89,6 +89,7 @@ let sunflower_scale = 0.7;
 let log_str = '';
 let lastVol = 0;
 let freezeCount = 0;
+let lastRestartedTime=0;
 
 // ==================== 기기 감지 ====================
 
@@ -153,17 +154,16 @@ function mousePressed() {
 }
 //=======================마이크 재활성화=====================
 function restartMic() {
+
+  fill(255);
+  textSize(32);
+  text("마이크재시작.", w, h);
   if (mic) {
     mic.stop(); //기존 마이크 중지
   }
   mic = new p5.AudioIn();
   mic.start();
   started = true;
-
-
-  fill(255);
-  textSize(32);
-  text("마이크재시작.", w, h);
 }
 //======================마이크 모니터링=======================
 function monitorMic() {
@@ -175,11 +175,12 @@ function monitorMic() {
   }
   lastVol = currentVol;
 
-  if (freezeCount > 100) {//&& currentVol < 0.0002) {
+  const now = millis();
+  if (freezeCount > 100 && (now -lastRestartedTime) > 3000) {
     console.warn("마이크 재시작 시도");
     restartMic();
     freezeCount = 0;
-
+    lastRestartedTime = now;
   }
 }
 // ==================== 메인 드로잉 루프 ====================
