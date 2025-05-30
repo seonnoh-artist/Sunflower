@@ -142,13 +142,13 @@ function initializeArt() {
 
 // ==================== 마이크 활성화 ====================
 function mousePressed() {
-  if (!started) {
+  /*if (!started) {
     userStartAudio().then(() => {
       mic = new p5.AudioIn();
       mic.start();
       started = true;
     });
-  }
+  }*/
 }
 //=======================마이크 재활성화=====================
 function restartMic() {
@@ -219,9 +219,15 @@ function draw() {
   background(0, 0, 0, 10);
 
   if (!started) {
+    userStartAudio().then(() => {
+      mic = new p5.AudioIn();
+      mic.start();
+      started = true;
+    });
+    
     fill(255);
     textSize(32);
-    text("마우스를 클릭해주세요.", w, h);
+    text("마이크 시작.", w, h);
     return;
   }
   monitorMic(); //마이크 모니터링
