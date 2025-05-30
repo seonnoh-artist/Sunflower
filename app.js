@@ -55,6 +55,7 @@ function saveExhibitionTime() {
   const s = parseInt(document.getElementById('start-hour').value);
   const e = parseInt(document.getElementById('end-hour').value);
 
+
   if (s >= 0 && s <= 23 && e >= 0 && e <= 23) {
     startHour = s;
     endHour = e;
