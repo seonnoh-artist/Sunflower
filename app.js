@@ -116,8 +116,8 @@ function printLog() {
   text(log_str, 100, 100);
   let volume_str = mic.getLevel();
   text("vol: " + nf(volume_str, 1, 6), 100, 300);
-  text("satrtHour: " + startHour, 100, 330);
-  text("endHour: " + endHour, 100, 360);
+  text("satrtHour: " + startHour, 100, 200);
+  text("endHour: " + endHour, 100, 250);
 }
 
 // ==================== 작품 초기화 ====================
