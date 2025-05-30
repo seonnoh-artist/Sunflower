@@ -61,7 +61,7 @@ function saveExhibitionTime() {
     endHour = e;
     localStorage.setItem('startHour', startHour);
     localStorage.setItem('endHour', endHour);
-    alert('전시 시간이 ' + startHour + '-' +endHour +'시로 저장되었습니다.');
+    alert('전시 시간이 ' + startHour + '-' + endHour + '시로 저장되었습니다.');
   } else {
     alert('0~23 사이의 숫자를 입력해주세요.');
   }
@@ -143,13 +143,13 @@ function initializeArt() {
 
 // ==================== 마이크 활성화 ====================
 function mousePressed() {
-  /*if (!started) {
+  if (!started) {
     userStartAudio().then(() => {
       mic = new p5.AudioIn();
       mic.start();
       started = true;
     });
-  }*/
+  }
 }
 //=======================마이크 재활성화=====================
 function restartMic() {
@@ -161,9 +161,9 @@ function restartMic() {
   started = true;
 
 
-    fill(255);
-    textSize(32);
-    text("마이크재시작.", w, h);
+  fill(255);
+  textSize(32);
+  text("마이크재시작.", w, h);
 }
 //======================마이크 모니터링=======================
 function monitorMic() {
@@ -175,11 +175,11 @@ function monitorMic() {
   }
   lastVol = currentVol;
 
-  if (freezeCount > 100 ){//&& currentVol < 0.0002) {
+  if (freezeCount > 100) {//&& currentVol < 0.0002) {
     console.warn("마이크 재시작 시도");
     restartMic();
     freezeCount = 0;
-  
+
   }
 }
 // ==================== 메인 드로잉 루프 ====================
@@ -223,17 +223,12 @@ function draw() {
   background(0, 0, 0, 10);
 
   if (!started) {
-    userStartAudio().then(() => {
-      mic = new p5.AudioIn();
-      mic.start();
-      started = true;
-    });
-    
     fill(255);
     textSize(32);
-    text("마이크 시작.", w, h);
+    text("화면을 클릭해 마이크 호출출", w, h);
     return;
   }
+
   monitorMic(); //마이크 모니터링
 
   vol = mic.getLevel();
