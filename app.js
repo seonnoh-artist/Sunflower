@@ -13,10 +13,12 @@ function checkPassword() {
     document.activeElement.blur(); // 키보드 내려가기
 
     setTimeout(() => {
-      const form = document.getElementById('password-form');
-      form.style.display = 'none';
-      form.innerHTML = '';
-
+      //첫 화면의 패스워드 및 설정시간 폼을 없앤다. 
+      document.getElementById('password-form').style.display = 'none';
+      document.getElementById('password-form').innerHTML = ''; //html구조제거 
+      document.getElementById('time-setting-form').style.display = 'none';
+      document.getElementById('time-setting-form').innerHTML = ''; //html구조제거 
+      
       document.getElementById('art-container').style.display = 'block';
       initializeArt();
     }, 50);
