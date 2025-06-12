@@ -1,6 +1,6 @@
 // ==================== 비밀번호 인증 ====================
 
-let password = '0000'; // 원하는 비밀번호로 수정
+let password = '2671'; // 원하는 비밀번호로 수정
 let enteredPassword = '';
 let startHour = 10; // 전시 시간 설정 
 let endHour = 20;
