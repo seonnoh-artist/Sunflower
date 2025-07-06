@@ -217,7 +217,7 @@ function draw() {
   if (!started) {
     fill(255);
     textSize(32);
-    text("화면을 클릭해 마이크 호출출", w, h);
+    text("화면을 클릭해 마이크 호출해 주세요.", w, h);
     return;
   }
 
@@ -323,3 +323,37 @@ if ('serviceWorker' in navigator) {
     .then(reg => console.log('Service Worker registered:', reg.scope))
     .catch(err => console.log('Service Worker registration failed:', err));
 }
+
+// ======마이크 활성화로 캐싱 날아감 방지
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    // 앱이 백그라운드로 갔을 때
+    if (mic) {
+      mic.stop();
+      mic = null;
+      started = false;
+      console.log('🔇 마이크 꺼짐 (앱 백그라운드)');
+    }
+
+    if (getAudioContext().state === 'running') {
+      getAudioContext().suspend();
+    }
+
+  } else {
+    // 앱이 다시 포그라운드로 왔을 때
+    userStartAudio().then(() => {
+      if (!mic) {
+        mic = new p5.AudioIn();
+        mic.start(() => {
+          started = true;
+          console.log('🎤 마이크 다시 켜짐 (앱 포그라운드)');
+        });
+      }
+
+      if (getAudioContext().state !== 'running') {
+        getAudioContext().resume();
+      }
+    });
+  }
+});
